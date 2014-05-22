@@ -1,4 +1,4 @@
-Unity3d-Amazon-Mobile-Ads-Plugin
-================================
+Unity3d-Amazon-Ads-Plugin
+=========================
 
-Unity3d Amazon Mobile ads plugin which supports both Banner &amp; Interstitial ads
+A fully featured plugin for unity3d which supports both Amazon banner and interstitial ads.
