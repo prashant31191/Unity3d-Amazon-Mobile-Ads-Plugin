@@ -8,7 +8,7 @@ using System.Collections;
 
 public class AmazonAds : MonoBehaviour 
 {
-	public static AmazonAds current;
+	public static AmazonAds current = null ;
 
 	public string AppKey = "";
 
@@ -28,15 +28,17 @@ public class AmazonAds : MonoBehaviour
 	void Awake()
 	{
 
-		current = this;
+		if ( current == null )
+		{
+			current = this;
 
-		#if UNITY_ANDROID && ! UNITY_EDITOR
-		AndroidJavaClass jc = new AndroidJavaClass("com.twimler.plugins.AmazonAds"); 
-		plugin = jc.CallStatic<AndroidJavaObject>("getInstance"); 	
-		#endif
+			#if UNITY_ANDROID && ! UNITY_EDITOR
+			AndroidJavaClass jc = new AndroidJavaClass("com.twimler.plugins.AmazonAds"); 
+			plugin = jc.CallStatic<AndroidJavaObject>("getInstance"); 	
+			#endif
 
-		InvokeRepeating ( "Refresh" , RefreshInterval , RefreshInterval );
-
+			InvokeRepeating ( "Refresh" , RefreshInterval , RefreshInterval );
+		}
 	}
 	
 	// Add an advertising network
@@ -64,55 +66,61 @@ public class AmazonAds : MonoBehaviour
 	public void CreateBanner()
 	{
 
-		if ( ! IsInit )
+		if ( IsInit )
 		{
-			Init ();
+			#if UNITY_ANDROID && ! UNITY_EDITOR
+				plugin.Call ("createBanner" , GetPosition() );
+			#endif
 		}
-
-		#if UNITY_ANDROID && ! UNITY_EDITOR
-			plugin.Call ("createBanner" , GetPosition() );
-		#endif
-
 	}
 
 	// Destroy Banner
 	public void DestroyBanner()
 	{
-		#if UNITY_ANDROID && ! UNITY_EDITOR
-			plugin.Call ("destroyBanner");
-		#endif
+		if ( IsInit )
+		{
+			#if UNITY_ANDROID && ! UNITY_EDITOR
+				plugin.Call ("destroyBanner");
+			#endif
+		}
 	}
 
 	// Hide Banner
 	public void HideBanner( bool hide )
 	{
-		#if UNITY_ANDROID && ! UNITY_EDITOR
-			plugin.Call ("hideBanner" , hide);
-		#endif
+		if ( IsInit )
+		{
+			#if UNITY_ANDROID && ! UNITY_EDITOR
+				plugin.Call ("hideBanner" , hide);
+			#endif
+		}
 	}
 
 
 	// Request interstitials
 	public void RequestInterstitials()
 	{
-		#if UNITY_ANDROID && ! UNITY_EDITOR
-		plugin.Call ("requestInterstital" );
-		#endif
-
+		if ( IsInit )
+		{
+			#if UNITY_ANDROID && ! UNITY_EDITOR
+			plugin.Call ("requestInterstital" );
+			#endif
+		}
 	}
 	
 	// Show interstitials
 	public void ShowInterstitials()
 	{
-		
-		#if UNITY_ANDROID && ! UNITY_EDITOR
-		if ( InterstitialLoaded )
+		if ( IsInit )
 		{
-			plugin.Call ("showInterstitial" );
-			InterstitialLoaded = false;
+			#if UNITY_ANDROID && ! UNITY_EDITOR
+			if ( InterstitialLoaded )
+			{
+				plugin.Call ("showInterstitial" );
+				InterstitialLoaded = false;
+			}
+			#endif
 		}
-		#endif
-		
 	}
 	
 	// If interstitial is ready

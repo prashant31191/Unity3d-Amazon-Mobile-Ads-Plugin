@@ -9,9 +9,7 @@ using System.Collections;
 public class AdRotator : MonoBehaviour 
 {
 
-	public static AdRotator current;
-	
-	private bool IsInit = false;
+	public static AdRotator current = null;
 
 	// Vertical Align  ( Top or Bottom )
 	public enum VerticalAligns { Top = 0 , Bottom = 1 };
@@ -19,23 +17,21 @@ public class AdRotator : MonoBehaviour
 	
 	void Awake()
 	{
-		current = this;
-
-		gameObject.name = "TwimlerAdRotator";
-
-	}
-
-	// Initializing
-	void Start()
-	{
-		if ( ! IsInit )
+		if ( current == null )
 		{
+			current = this;
+
+			gameObject.name = "TwimlerAdRotator";
+
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
+			
 			DontDestroyOnLoad ( this );
-		
-			IsInit = true;
 
+			AmazonAds.current.Init();
+		}
+		else
+		{
+			Destroy ( gameObject );
 		}
 	}
 
