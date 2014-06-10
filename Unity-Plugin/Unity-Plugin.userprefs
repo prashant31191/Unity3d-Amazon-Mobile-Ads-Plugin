@@ -2,8 +2,8 @@
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Plugins/AdRotator/AdRotator.cs">
     <Files>
-      <File FileName="Assets/Plugins/AdRotator/AdRotator.cs" Line="30" Column="29" />
-      <File FileName="Assets/Plugins/AdRotator/Networks/AmazonAds.cs" Line="136" Column="3" />
+      <File FileName="Assets/Plugins/AdRotator/Networks/AmazonAds.cs" Line="107" Column="61" />
+      <File FileName="Assets/Plugins/AdRotator/AdRotator.cs" Line="43" Column="129" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

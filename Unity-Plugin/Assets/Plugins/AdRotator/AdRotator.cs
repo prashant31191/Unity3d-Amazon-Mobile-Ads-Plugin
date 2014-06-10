@@ -40,42 +40,44 @@ public class AdRotator : MonoBehaviour
 	{
 		GUILayout.BeginHorizontal();
 
-		GUILayout.Toggle ( AmazonAds.current.IsInterstitialReady() , "  Amazon Interstitials Loaded" , GUILayout.Width ( Screen.width * 0.5f ) );
+		GUILayout.Toggle ( AmazonAds.current.IsInterstitialReady() , "  Amazon Interstitials Loaded" , GUILayout.Width ( Screen.width  ) );
 
 
 
 		GUILayout.EndHorizontal();
 
+		// Create the banner
+		if ( GUI.Button ( new Rect ( Screen.width * 0.05f , Screen.height * 0.1f , Screen.width * 0.4f , Screen.height * 0.15f ) , "Create Amazon Banners") )
+		{
+			AmazonAds.current.CreateBanner();
+		}
+		
+		if ( GUI.Button ( new Rect ( Screen.width * 0.55f , Screen.height * 0.1f , Screen.width * 0.4f , Screen.height * 0.15f ) , "Refresh Amazon Banners") )
+		{
+			AmazonAds.current.Refresh();
+		}
+		
+		if ( GUI.Button ( new Rect ( Screen.width * 0.05f , Screen.height * 0.3f , Screen.width * 0.4f , Screen.height * 0.15f ) , "Hide Amazon Banners") )
+		{
+			AmazonAds.current.HideBanner ( true );
+		}
+		
+		if ( GUI.Button ( new Rect ( Screen.width * 0.55f , Screen.height * 0.3f , Screen.width * 0.4f , Screen.height * 0.15f ) , "UnHide Amazon Banners") )
+		{
+			AmazonAds.current.HideBanner ( false );
+		}
 
-		if ( GUI.Button ( new Rect ( Screen.width * 0.2f , Screen.height * 0.15f , Screen.width * 0.6f , Screen.height * 0.05f ) , "Request Amazon Interstitials") )
+		// Interstitials
+		if ( GUI.Button ( new Rect ( Screen.width * 0.05f , Screen.height * 0.5f , Screen.width * 0.4f , Screen.height * 0.15f ) , "Request Amazon Interstitials") )
 		{
 			AmazonAds.current.RequestInterstitials();
 		}
 
-		if ( GUI.Button ( new Rect ( Screen.width * 0.2f , Screen.height * 0.25f , Screen.width * 0.6f , Screen.height * 0.05f ) , "Show Amazon Interstitials") )
+		if ( GUI.Button ( new Rect ( Screen.width * 0.55f , Screen.height * 0.5f , Screen.width * 0.4f , Screen.height * 0.15f ) , "Show Amazon Interstitials") )
 		{
 			AmazonAds.current.ShowInterstitials();
 		}
 
-		if ( GUI.Button ( new Rect ( Screen.width * 0.2f , Screen.height * 0.35f , Screen.width * 0.6f , Screen.height * 0.05f ) , "Show Amazon Banners") )
-		{
-			AmazonAds.current.CreateBanner();
-		}
-
-		if ( GUI.Button ( new Rect ( Screen.width * 0.2f , Screen.height * 0.45f , Screen.width * 0.6f , Screen.height * 0.05f ) , "Refresh Amazon Banners") )
-		{
-			AmazonAds.current.Refresh();
-		}
-
-		if ( GUI.Button ( new Rect ( Screen.width * 0.2f , Screen.height * 0.55f , Screen.width * 0.6f , Screen.height * 0.05f ) , "Hide Amazon Banners") )
-		{
-			AmazonAds.current.HideBanner ( true );
-		}
-
-		if ( GUI.Button ( new Rect ( Screen.width * 0.2f , Screen.height * 0.65f , Screen.width * 0.6f , Screen.height * 0.05f ) , "Show Amazon Banners") )
-		{
-			AmazonAds.current.HideBanner ( false );
-		}
 	}
 
 

@@ -20,6 +20,8 @@ public class AmazonAds : MonoBehaviour
 	
 	private bool IsInit = false;
 
+	private bool IsBannerCreated = false;
+
 	#if UNITY_ANDROID && ! UNITY_EDITOR
 	private AndroidJavaObject plugin;
 	#endif
@@ -71,6 +73,8 @@ public class AmazonAds : MonoBehaviour
 			#if UNITY_ANDROID && ! UNITY_EDITOR
 				plugin.Call ("createBanner" , GetPosition() );
 			#endif
+
+			IsBannerCreated = true;
 		}
 	}
 
@@ -82,6 +86,8 @@ public class AmazonAds : MonoBehaviour
 			#if UNITY_ANDROID && ! UNITY_EDITOR
 				plugin.Call ("destroyBanner");
 			#endif
+
+			IsBannerCreated = false;
 		}
 	}
 
@@ -90,9 +96,20 @@ public class AmazonAds : MonoBehaviour
 	{
 		if ( IsInit )
 		{
-			#if UNITY_ANDROID && ! UNITY_EDITOR
-				plugin.Call ("hideBanner" , hide);
-			#endif
+			if ( IsBannerCreated )
+			{
+				#if UNITY_ANDROID && ! UNITY_EDITOR
+					plugin.Call ("hideBanner" , hide);
+				#endif
+			}
+			else
+			{
+				Debug.Log ("You must call CreateBanner function first");
+			}
+		}
+		else
+		{
+			Debug.Log ("Amazon ads are not initialized yet");
 		}
 	}
 
